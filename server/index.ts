@@ -1,3 +1,4 @@
+import path from 'path';
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
@@ -63,7 +64,25 @@ app.use((req, res, next) => {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    serveStatic(app);
+    // === VERCEL PRODUCTION FIX ===
+
+    // 1. Define the path to the built client assets
+    // Since index.js is in 'dist/', we go 'up' one level to the project root, 
+    // and then into 'dist/public' where Vite output is.
+    const CLIENT_BUILD_PATH = path.join(__dirname, '..', 'dist', 'public');
+
+    // 2. Serve static files (CSS, JS, images, etc.)
+    // Vercel generally handles static files better when served this way for a serverless function.
+    app.use(express.static(CLIENT_BUILD_PATH));
+
+    // 3. Serve index.html for all GET requests (client-side routing)
+    // This is the catch-all for any route not handled by your APIs.
+    app.get('*', (req: Request, res: Response) => {
+      // Vercel logs the request URL when it can't find a file.
+      // We ensure we send the main HTML file.
+      res.sendFile(path.join(CLIENT_BUILD_PATH, 'index.html'));
+    });
+    // =============================
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
