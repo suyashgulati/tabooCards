@@ -332,9 +332,9 @@ const allCards: TabooCardType[] = [
         "hint": "The girl with the red cloth on her head"
     },
     {
-        "song": "Tamma Tamma Again",
+        "song": "Tamma Tamma",
         "tabooWords": ["Madhuri", "Sanjay", "Remake"],
-        "hint": "Iconic 90s dance number, recreated"
+        "hint": "Iconic 90s dance number"
     },
     {
         "song": "Dheere Dheere Se",
@@ -400,11 +400,6 @@ const allCards: TabooCardType[] = [
         "song": "Aankhon Mein Teri",
         "tabooWords": ["Eyes", "Dream", "Peace"],
         "hint": "Seeing your face gives me calm"
-    },
-    {
-        "song": "Aashiq Surrender Hua",
-        "tabooWords": ["Lover", "Give Up", "Police"],
-        "hint": "The romantic gives up to his beloved"
     },
     {
         "song": "Saiyaara",
@@ -482,9 +477,9 @@ const allCards: TabooCardType[] = [
         "hint": "The night before the weekend"
     },
     {
-        "song": "Pyaar Karona",
-        "tabooWords": ["Love", "Isolate", "Lockdown"],
-        "hint": "Salman Khan's song during the pandemic"
+        "song": "Sayiare tu to badla nai",
+        "tabooWords": ["Love", "Mad", "Cry"],
+        "hint": "Newest chapri song"
     },
     {
         "song": "Dhan Te Nan",
