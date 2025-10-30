@@ -3,8 +3,8 @@ import TabooCard from "@/components/TabooCard";
 import ActionButtons from "@/components/ActionButtons";
 import { type TabooCard as TabooCardType } from "@shared/schema";
 
-//todo: remove mock functionality - sample cards for demo
-const sampleCards: TabooCardType[] = [
+// Default sample cards - replace with your own array
+const defaultCards: TabooCardType[] = [
   {
     song: "Kabira",
     tabooWords: ["Yeh Jawaani", "Wedding", "Friends"],
@@ -33,24 +33,24 @@ const sampleCards: TabooCardType[] = [
 ];
 
 export default function Home() {
+  // You can pass your own cards array here
+  const [cards] = useState<TabooCardType[]>(defaultCards);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
 
   const handleNext = () => {
     setFadeOut(true);
     setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % sampleCards.length);
+      setCurrentIndex((prev) => (prev + 1) % cards.length);
       setFadeOut(false);
     }, 200);
   };
 
   const handleSkip = () => {
-    console.log('Card skipped');
     handleNext();
   };
 
   const handleCorrect = () => {
-    console.log('Card marked correct');
     handleNext();
   };
 
@@ -60,7 +60,7 @@ export default function Home() {
         <div
           className={`transition-opacity duration-200 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
         >
-          <TabooCard card={sampleCards[currentIndex]} />
+          <TabooCard card={cards[currentIndex]} />
           <ActionButtons onSkip={handleSkip} onCorrect={handleCorrect} />
         </div>
       </div>
