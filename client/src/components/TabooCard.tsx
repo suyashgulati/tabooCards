@@ -1,10 +1,14 @@
 import { type TabooCard } from "@shared/schema";
+import { Button } from "@/components/ui/button";
+import { Eye } from "lucide-react";
 
 interface TabooCardProps {
   card: TabooCard;
+  hintVisible: boolean;
+  onShowHint: () => void;
 }
 
-export default function TabooCard({ card }: TabooCardProps) {
+export default function TabooCard({ card, hintVisible, onShowHint }: TabooCardProps) {
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="bg-card rounded-2xl shadow-2xl overflow-hidden border border-card-border">
@@ -29,10 +33,22 @@ export default function TabooCard({ card }: TabooCardProps) {
           </div>
         </div>
 
-        <div className="bg-[#d84f4f] text-white px-8 py-6 text-center">
-          <p className="text-base font-normal italic">
-            {card.hint}
-          </p>
+        <div className="bg-[#d84f4f] text-white px-8 py-6 text-center min-h-[80px] flex items-center justify-center">
+          {hintVisible ? (
+            <p className="text-base font-normal italic">
+              {card.hint}
+            </p>
+          ) : (
+            <Button
+              data-testid="button-show-hint"
+              onClick={onShowHint}
+              variant="ghost"
+              className="text-white hover:bg-white/20 gap-2"
+            >
+              <Eye className="h-5 w-5" />
+              Show Hint
+            </Button>
+          )}
         </div>
       </div>
     </div>
