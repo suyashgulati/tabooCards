@@ -1,0 +1,292 @@
+[
+    {
+        "song": "Chogada",
+        "tabooWords": ["Navratri", "Garba", "Dance"],
+        "hint": "Festival of devotion and love"
+    },
+    {
+        "song": "Tujh Mein Rab Dikhta Hai",
+        "tabooWords": ["Faith", "Devotion", "Marriage"],
+        "hint": "Seeing god in your love"
+    },
+    {
+        "song": "Senorita",
+        "tabooWords": ["Spain", "Dance", "Guitar"],
+        "hint": "Desi boys in Spanish mood"
+    },
+    {
+        "song": "Phir Bhi Tumko Chaahunga",
+        "tabooWords": ["Rain", "Pain", "Love"],
+        "hint": "Endless devotion"
+    },
+    {
+        "song": "Kala Chashma",
+        "tabooWords": ["Sunglasses", "Party", "Dance"],
+        "hint": "Everyone wears shades"
+    },
+    {
+        "song": "Kabira",
+        "tabooWords": ["Wedding", "Goodbye", "Travel"],
+        "hint": "Bittersweet farewell song"
+    },
+    {
+        "song": "Dus Bahane",
+        "tabooWords": ["Excuse", "Dance", "Remix"],
+        "hint": "Early 2000s party anthem"
+    },
+    {
+        "song": "Tum Hi Ho",
+        "tabooWords": ["Arijit", "Rain", "Love"],
+        "hint": "Romantic ballad from early 2010s"
+    },
+    {
+        "song": "Dil To Pagal Hai",
+        "tabooWords": ["Dance", "SRK", "Madhuri"],
+        "hint": "Mad about love"
+    },
+    {
+        "song": "Sauda Khara Khara",
+        "tabooWords": ["Remix", "Dance", "Punjabi"],
+        "hint": "Energetic celebration track"
+    },
+    {
+        "song": "Jhoome Jo Pathaan",
+        "tabooWords": ["SRK", "Dance", "Beat"],
+        "hint": "Swagger and groove"
+    },
+    {
+        "song": "Desi Girl",
+        "tabooWords": ["Pride", "Indian", "Girl"],
+        "hint": "The hottest one in town"
+    },
+    {
+        "song": "Param Sundari",
+        "tabooWords": ["Dance", "Hot", "Item"],
+        "hint": "Fierce female power song"
+    },
+    {
+        "song": "Zinda",
+        "tabooWords": ["Life", "Adventure", "Mountain"],
+        "hint": "Feeling alive again"
+    },
+    {
+        "song": "Mitwa",
+        "tabooWords": ["Guitar", "SRK", "Love"],
+        "hint": "Soft inspirational romance"
+    },
+    {
+        "song": "London Thumakda",
+        "tabooWords": ["Wedding", "Bride", "Dance"],
+        "hint": "Energetic pre-wedding song"
+    },
+    {
+        "song": "Apna Bana Le",
+        "tabooWords": ["Pritam", "Sad", "Rain"],
+        "hint": "Melancholic romantic tune"
+    },
+    {
+        "song": "Lungi Dance",
+        "tabooWords": ["South", "Style", "Chennai"],
+        "hint": "Tribute to superstar swag"
+    },
+    {
+        "song": "Senorita",
+        "tabooWords": ["Spanish", "Dance", "Travel"],
+        "hint": "Bollywood meets flamenco"
+    },
+    {
+        "song": "Kar Gayi Chull",
+        "tabooWords": ["Party", "Dance", "Cool"],
+        "hint": "Trendy dance anthem"
+    },
+    {
+        "song": "Samjhawan",
+        "tabooWords": ["Heartbreak", "Soft", "Arijit"],
+        "hint": "Painful love melody"
+    },
+    {
+        "song": "Tera Ban Jaunga",
+        "tabooWords": ["Promise", "Forever", "Love"],
+        "hint": "Song about lifelong commitment"
+    },
+    {
+        "song": "Malhari",
+        "tabooWords": ["Victory", "War", "Celebration"],
+        "hint": "Triumphant warrior dance"
+    },
+    {
+        "song": "Raatan Lambiyan",
+        "tabooWords": ["Love", "Night", "Longing"],
+        "hint": "Romantic earworm"
+    },
+    {
+        "song": "Jeene Ke Hain Chaar Din",
+        "tabooWords": ["Holiday", "Shirtless", "Fun"],
+        "hint": "Carefree beach vibe"
+    },
+    {
+        "song": "Makhna",
+        "tabooWords": ["Love", "Fun", "Rap"],
+        "hint": "Playful romantic vibe"
+    },
+    {
+        "song": "Mehendi Hai Rachnewali",
+        "tabooWords": ["Bride", "Wedding", "Henna"],
+        "hint": "Pre-wedding traditional song"
+    },
+    {
+        "song": "Balam Pichkari",
+        "tabooWords": ["Holi", "Colors", "Friends"],
+        "hint": "Celebrating with water and color"
+    },
+    {
+        "song": "Dil Dhadakne Do",
+        "tabooWords": ["Cruise", "Family", "Drama"],
+        "hint": "When the heart beats freely"
+    },
+    {
+        "song": "Morni Banke",
+        "tabooWords": ["Dance", "Wedding", "Punjabi"],
+        "hint": "Vibrant party number"
+    },
+    {
+        "song": "Saibo",
+        "tabooWords": ["Soft", "Love", "Calm"],
+        "hint": "Gentle romantic tune"
+    },
+    {
+        "song": "Suraj Hua Maddham",
+        "tabooWords": ["Pyramid", "Romance", "Desert"],
+        "hint": "Love under the sun"
+    },
+    {
+        "song": "Badtameez Dil",
+        "tabooWords": ["Fun", "Crazy", "Dance"],
+        "hint": "Uncontrollable energy"
+    },
+    {
+        "song": "Kajra Re",
+        "tabooWords": ["Eyes", "Dance", "Item"],
+        "hint": "Flirty and mischievous"
+    },
+    {
+        "song": "Agar Tum Saath Ho",
+        "tabooWords": ["Sad", "Love", "Separation"],
+        "hint": "Emotional ballad"
+    },
+    {
+        "song": "Ghungroo",
+        "tabooWords": ["Dance", "Beach", "Shack"],
+        "hint": "Beach party anthem"
+    },
+    {
+        "song": "Kal Ho Naa Ho",
+        "tabooWords": ["Tomorrow", "Sad", "Love"],
+        "hint": "Live life fully"
+    },
+    {
+        "song": "Kesariya",
+        "tabooWords": ["Love", "Orange", "Magic"],
+        "hint": "Recent romantic chartbuster"
+    },
+    {
+        "song": "Pasoori",
+        "tabooWords": ["Coke Studio", "Fusion", "Pakistan"],
+        "hint": "Global viral hit"
+    },
+    {
+        "song": "Ghagra",
+        "tabooWords": ["Dance", "Travel", "Folk"],
+        "hint": "Vibrant and flirtatious"
+    },
+    {
+        "song": "Tera Hone Laga Hoon",
+        "tabooWords": ["Falling", "Romance", "Soft"],
+        "hint": "Adorable confession song"
+    },
+    {
+        "song": "Zara Si",
+        "tabooWords": ["Dream", "College", "Hope"],
+        "hint": "Ambition and love together"
+    },
+    {
+        "song": "Blinding Lights (Hindi Mix)",
+        "tabooWords": ["Weekend", "Remix", "English"],
+        "hint": "Bollywood-inspired global remix"
+    },
+    {
+        "song": "Subha Hone Na De",
+        "tabooWords": ["Night", "Party", "Club"],
+        "hint": "After-party energy"
+    },
+    {
+        "song": "Ude Dil Befikre",
+        "tabooWords": ["Paris", "Carefree", "Kiss"],
+        "hint": "Live without worry"
+    },
+    {
+        "song": "Tera Zikr",
+        "tabooWords": ["Remember", "Love", "Sad"],
+        "hint": "Missing someone deeply"
+    },
+    {
+        "song": "Koi Kahe Kehta Rahe",
+        "tabooWords": ["Dance", "Party", "Night"],
+        "hint": "We do what we want"
+    },
+    {
+        "song": "Naino Mein Sapna",
+        "tabooWords": ["Dream", "Eyes", "Retro"],
+        "hint": "Classic romantic duet"
+    },
+    {
+        "song": "Tune Maari Entriyaan",
+        "tabooWords": ["Entry", "Dance", "Fun"],
+        "hint": "Grand arrival track"
+    },
+    {
+        "song": "Aankh Marey",
+        "tabooWords": ["Remake", "Wink", "Dance"],
+        "hint": "Playful and loud number"
+    },
+    {
+        "song": "Leja Leja Re",
+        "tabooWords": ["Travel", "Journey", "Folk"],
+        "hint": "Classic romantic fusion"
+    },
+    {
+        "song": "Dilliwali Girlfriend",
+        "tabooWords": ["Ex", "Fun", "Dance"],
+        "hint": "Celebrating breakups"
+    },
+    {
+        "song": "Besharam Rang",
+        "tabooWords": ["Beach", "Dance", "Bold"],
+        "hint": "Controversial beach number"
+    },
+    {
+        "song": "Radha",
+        "tabooWords": ["Shy", "Dance", "Stage"],
+        "hint": "Girl showing off her charm"
+    },
+    {
+        "song": "Tujhe Dekha To",
+        "tabooWords": ["Train", "SRK", "Love"],
+        "hint": "Iconic love at first sight"
+    },
+    {
+        "song": "Dil Chahta Hai",
+        "tabooWords": ["Friends", "Goa", "Trip"],
+        "hint": "About friendship and freedom"
+    },
+    {
+        "song": "Tera Yaar Hoon Main",
+        "tabooWords": ["Friend", "Emotional", "Farewell"],
+        "hint": "Emotional friendship song"
+    },
+    {
+        "song": "Sheila Ki Jawani",
+        "tabooWords": ["Katrina", "Sexy", "Item"],
+        "hint": "A glamorous dance number"
+    }
+]
