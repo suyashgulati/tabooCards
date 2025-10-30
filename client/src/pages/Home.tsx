@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TabooCard from "@/components/TabooCard";
 import ActionButtons from "@/components/ActionButtons";
+import ScoreBoard from "@/components/ScoreBoard";
 import { type TabooCard as TabooCardType } from "@shared/schema";
 
-const cards: TabooCardType[] = [
+const allCards: TabooCardType[] = [
   {
     "song": "Chogada",
     "tabooWords": ["Navratri", "Garba", "Dance"],
@@ -296,34 +297,107 @@ const cards: TabooCardType[] = [
   }
 ];
 
-export default function Home() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [fadeOut, setFadeOut] = useState(false);
+// Shuffle function
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
-  const handleNext = () => {
+export default function Home() {
+  const [score, setScore] = useState(0);
+  const [remainingCards, setRemainingCards] = useState<TabooCardType[]>([]);
+  const [currentCard, setCurrentCard] = useState<TabooCardType | null>(null);
+  const [hintVisible, setHintVisible] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+
+  // Initialize or reset the game
+  const startNewSession = () => {
+    const shuffled = shuffleArray(allCards);
+    setRemainingCards(shuffled);
+    setCurrentCard(shuffled[0]);
+    setScore(0);
+    setHintVisible(false);
+    setGameOver(false);
+  };
+
+  // Initialize on mount
+  useEffect(() => {
+    startNewSession();
+  }, []);
+
+  const handleShowHint = () => {
+    setHintVisible(true);
+    setScore(prev => prev - 0.5);
+  };
+
+  const handleNext = (scoreChange: number) => {
+    setScore(prev => prev + scoreChange);
     setFadeOut(true);
+    
     setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % cards.length);
+      const remaining = remainingCards.slice(1);
+      
+      if (remaining.length === 0) {
+        setGameOver(true);
+        setCurrentCard(null);
+      } else {
+        setRemainingCards(remaining);
+        setCurrentCard(remaining[0]);
+        setHintVisible(false);
+      }
+      
       setFadeOut(false);
     }, 200);
   };
 
   const handleSkip = () => {
-    handleNext();
+    handleNext(-1);
   };
 
   const handleCorrect = () => {
-    handleNext();
+    handleNext(1);
   };
+
+  if (gameOver) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-6">
+        <div className="w-full max-w-2xl text-center">
+          <div className="bg-card rounded-2xl shadow-2xl p-12 border border-card-border">
+            <h1 className="text-4xl font-bold mb-4 text-foreground">Game Over!</h1>
+            <p className="text-6xl font-bold text-primary mb-8" data-testid="text-final-score">{score.toFixed(1)}</p>
+            <p className="text-lg text-muted-foreground mb-8">You've completed all {allCards.length} cards!</p>
+            <ScoreBoard score={score} onNewSession={startNewSession} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!currentCard) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-6">
       <div className="w-full max-w-2xl">
+        <ScoreBoard score={score} onNewSession={startNewSession} />
         <div
           className={`transition-opacity duration-200 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
         >
-          <TabooCard card={cards[currentIndex]} />
+          <TabooCard 
+            card={currentCard} 
+            hintVisible={hintVisible}
+            onShowHint={handleShowHint}
+          />
           <ActionButtons onSkip={handleSkip} onCorrect={handleCorrect} />
+          <div className="text-center mt-4 text-sm text-muted-foreground">
+            Cards remaining: {remainingCards.length - 1}
+          </div>
         </div>
       </div>
     </div>
