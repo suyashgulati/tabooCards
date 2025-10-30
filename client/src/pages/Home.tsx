@@ -414,7 +414,7 @@ export default function Home() {
   // Start screen
   if (gameState === 'start') {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-6">
+      <div className="h-full w-full bg-background flex items-center justify-center overflow-y-auto p-6">
         <div className="w-full max-w-2xl text-center">
           <div className="bg-card rounded-2xl shadow-2xl p-12 border border-card-border">
             <h1 className="text-5xl font-bold mb-6 text-foreground">Taboo Card Game</h1>
@@ -453,7 +453,7 @@ export default function Home() {
   // Session end screen
   if (gameState === 'sessionEnd') {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-6">
+      <div className="h-full w-full bg-background flex items-center justify-center overflow-y-auto p-6">
         <div className="w-full max-w-2xl text-center">
           <div className="bg-card rounded-2xl shadow-2xl p-12 border border-card-border">
             <h1 className="text-4xl font-bold mb-4 text-foreground">Time's Up!</h1>
@@ -482,7 +482,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+    <div className="h-full w-full bg-background flex items-center justify-center overflow-y-auto p-6">
       <div className="w-full max-w-2xl">
         <div className="flex items-center justify-between mb-8">
           <div className="text-lg font-semibold text-foreground">
