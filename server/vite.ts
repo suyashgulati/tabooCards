@@ -67,25 +67,18 @@ export async function setupVite(app: Express, server: Server) {
   });
 }
 
-/**
- * Serves the statically built client-side application.
- * This is used in production (e.g., on Vercel) where the server code is in 'dist/index.js'
- * and the client build output is in 'dist/public'.
- */
 export function serveStatic(app: Express) {
-  // Correct path: Go up one level (from 'dist/index.js' to project root) then into 'dist/public'
-  const distPath = path.resolve(import.meta.dirname, '..', 'dist', 'public');
+  const distPath = path.resolve(import.meta.dirname, "public");
 
   if (!fs.existsSync(distPath)) {
-    log(`FATAL: Could not find the build directory at: ${distPath}`, "express");
-    // Throw error or serve a generic message in production if build output is missing
+    throw new Error(
+      `Could not find the build directory: ${distPath}, make sure to build the client first`,
+    );
   }
 
-  // 1. Serve all static assets (JS, CSS, images) from the client's build directory
   app.use(express.static(distPath));
 
-  // 2. Fall through to index.html for all other requests (client-side routing)
-  // This is the essential part for single-page applications.
+  // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
   });
