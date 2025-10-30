@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import TabooCard from "@/components/TabooCard";
 import ActionButtons from "@/components/ActionButtons";
-import ScoreBoard from "@/components/ScoreBoard";
+import { Button } from "@/components/ui/button";
 import { type TabooCard as TabooCardType } from "@shared/schema";
+import { PlayCircle } from "lucide-react";
 
 const allCards: TabooCardType[] = [
   {
@@ -307,28 +308,76 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled;
 }
 
+type GameState = 'start' | 'playing' | 'sessionEnd';
+
 export default function Home() {
+  const [gameState, setGameState] = useState<GameState>('start');
   const [score, setScore] = useState(0);
-  const [remainingCards, setRemainingCards] = useState<TabooCardType[]>([]);
-  const [currentCard, setCurrentCard] = useState<TabooCardType | null>(null);
+  const [usedCardIndices, setUsedCardIndices] = useState<Set<number>>(new Set());
+  const [sessionCards, setSessionCards] = useState<TabooCardType[]>([]);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [hintVisible, setHintVisible] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutes in seconds
 
-  // Initialize or reset the game
+  // Timer effect
+  useEffect(() => {
+    if (gameState !== 'playing') return;
+
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev <= 1) {
+          setGameState('sessionEnd');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [gameState]);
+
   const startNewSession = () => {
-    const shuffled = shuffleArray(allCards);
-    setRemainingCards(shuffled);
-    setCurrentCard(shuffled[0]);
+    // Get available cards (not used yet)
+    const availableCards = allCards
+      .map((card, index) => ({ card, originalIndex: index }))
+      .filter(({ originalIndex }) => !usedCardIndices.has(originalIndex));
+
+    // If all cards used, reset
+    if (availableCards.length === 0) {
+      setUsedCardIndices(new Set());
+      const shuffled = shuffleArray(allCards);
+      setSessionCards(shuffled);
+      
+      // Mark first batch as used
+      const newUsedIndices = new Set<number>();
+      allCards.forEach((card, idx) => {
+        if (shuffled.includes(card)) {
+          newUsedIndices.add(idx);
+        }
+      });
+      setUsedCardIndices(newUsedIndices);
+    } else {
+      // Shuffle available cards
+      const shuffled = shuffleArray(availableCards.map(({ card }) => card));
+      setSessionCards(shuffled);
+      
+      // Mark these cards as used
+      const newUsedIndices = new Set(usedCardIndices);
+      availableCards.forEach(({ originalIndex }) => {
+        if (shuffled.includes(allCards[originalIndex])) {
+          newUsedIndices.add(originalIndex);
+        }
+      });
+      setUsedCardIndices(newUsedIndices);
+    }
+
+    setCurrentCardIndex(0);
     setScore(0);
     setHintVisible(false);
-    setGameOver(false);
+    setTimeRemaining(180);
+    setGameState('playing');
   };
-
-  // Initialize on mount
-  useEffect(() => {
-    startNewSession();
-  }, []);
 
   const handleShowHint = () => {
     setHintVisible(true);
@@ -340,17 +389,10 @@ export default function Home() {
     setFadeOut(true);
     
     setTimeout(() => {
-      const remaining = remainingCards.slice(1);
-      
-      if (remaining.length === 0) {
-        setGameOver(true);
-        setCurrentCard(null);
-      } else {
-        setRemainingCards(remaining);
-        setCurrentCard(remaining[0]);
+      if (currentCardIndex + 1 < sessionCards.length) {
+        setCurrentCardIndex(prev => prev + 1);
         setHintVisible(false);
       }
-      
       setFadeOut(false);
     }, 200);
   };
@@ -363,20 +405,77 @@ export default function Home() {
     handleNext(1);
   };
 
-  if (gameOver) {
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Start screen
+  if (gameState === 'start') {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="w-full max-w-2xl text-center">
           <div className="bg-card rounded-2xl shadow-2xl p-12 border border-card-border">
-            <h1 className="text-4xl font-bold mb-4 text-foreground">Game Over!</h1>
-            <p className="text-6xl font-bold text-primary mb-8" data-testid="text-final-score">{score.toFixed(1)}</p>
-            <p className="text-lg text-muted-foreground mb-8">You've completed all {allCards.length} cards!</p>
-            <ScoreBoard score={score} onNewSession={startNewSession} />
+            <h1 className="text-5xl font-bold mb-6 text-foreground">Taboo Card Game</h1>
+            <p className="text-lg text-muted-foreground mb-8">
+              Guess the song without saying the forbidden words!
+            </p>
+            <div className="space-y-4 text-left max-w-md mx-auto mb-10">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-[#4caf50] flex items-center justify-center text-white font-bold">+1</div>
+                <span className="text-foreground">Correct answer</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-[#d84f4f] flex items-center justify-center text-white font-bold">-1</div>
+                <span className="text-foreground">Skip card</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-[#d84f4f] flex items-center justify-center text-white text-sm">-0.5</div>
+                <span className="text-foreground">Show hint</span>
+              </div>
+            </div>
+            <Button
+              data-testid="button-start-session"
+              onClick={startNewSession}
+              size="lg"
+              className="gap-2 text-lg px-8 py-6"
+            >
+              <PlayCircle className="h-6 w-6" />
+              Start 3 Minute Session
+            </Button>
           </div>
         </div>
       </div>
     );
   }
+
+  // Session end screen
+  if (gameState === 'sessionEnd') {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-6">
+        <div className="w-full max-w-2xl text-center">
+          <div className="bg-card rounded-2xl shadow-2xl p-12 border border-card-border">
+            <h1 className="text-4xl font-bold mb-4 text-foreground">Time's Up!</h1>
+            <p className="text-lg text-muted-foreground mb-6">Session Score</p>
+            <p className="text-7xl font-bold text-primary mb-10" data-testid="text-session-score">{score.toFixed(1)}</p>
+            <Button
+              data-testid="button-start-session"
+              onClick={startNewSession}
+              size="lg"
+              className="gap-2 text-lg px-8 py-6"
+            >
+              <PlayCircle className="h-6 w-6" />
+              Start New Session
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Playing state
+  const currentCard = sessionCards[currentCardIndex];
 
   if (!currentCard) {
     return null;
@@ -385,7 +484,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-6">
       <div className="w-full max-w-2xl">
-        <ScoreBoard score={score} onNewSession={startNewSession} />
+        <div className="flex items-center justify-between mb-8">
+          <div className="text-lg font-semibold text-foreground">
+            Score: <span className="text-2xl font-bold text-primary" data-testid="text-score">{score.toFixed(1)}</span>
+          </div>
+          <div className="text-lg font-semibold text-foreground">
+            Time: <span className="text-2xl font-bold text-primary" data-testid="text-time">{formatTime(timeRemaining)}</span>
+          </div>
+        </div>
         <div
           className={`transition-opacity duration-200 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
         >
@@ -395,9 +501,6 @@ export default function Home() {
             onShowHint={handleShowHint}
           />
           <ActionButtons onSkip={handleSkip} onCorrect={handleCorrect} />
-          <div className="text-center mt-4 text-sm text-muted-foreground">
-            Cards remaining: {remainingCards.length - 1}
-          </div>
         </div>
       </div>
     </div>
