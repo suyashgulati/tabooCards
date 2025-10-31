@@ -513,7 +513,7 @@ export default function Home() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [hintVisible, setHintVisible] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutes in seconds
+  const [timeRemaining, setTimeRemaining] = useState(120); // 2 minutes in seconds
 
   // Timer effect
   useEffect(() => {
@@ -570,7 +570,7 @@ export default function Home() {
     setCurrentCardIndex(0);
     setScore(0);
     setHintVisible(false);
-    setTimeRemaining(180);
+  setTimeRemaining(120);
     setGameState('playing');
   };
 
@@ -637,7 +637,7 @@ export default function Home() {
               className="gap-2 text-lg px-8 py-6"
             >
               <PlayCircle className="h-6 w-6" />
-              Start 3 Minute Session
+              Start 2 Minute Session
             </Button>
           </div>
         </div>
